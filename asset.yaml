@@ -1,0 +1,468 @@
+# BUCKET - Tags
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: tags-7
+spec:
+  title: Tags
+  description: Film tags
+  icon: 4k
+  primary: tag
+  readOnly: false
+  history: false
+  properties:
+    tag:
+      type: string
+      description: Description of the tag input
+      options:
+        position: bottom
+  acl:
+    write: true==true
+    read: true==true
+  order: 6
+---
+# BUCKET - People
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: people-6
+spec:
+  title: People
+  description: Everyone with responsibilities
+  icon: account_box
+  primary: name
+  readOnly: false
+  history: false
+  properties:
+    name:
+      type: string
+      description: Description of the name input
+      options:
+        position: bottom
+  acl:
+    write: true==true
+    read: true==true
+  order: 5
+---
+# BUCKET - Genres
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: genres-5
+spec:
+  title: Genres
+  description: All system genres
+  icon: queue
+  primary: genre
+  readOnly: false
+  history: false
+  properties:
+    genre:
+      type: string
+      description: Description of the genre input
+      options:
+        position: bottom
+        unique: true
+  acl:
+    write: true==true
+    read: true==true
+  order: 4
+---
+# BUCKET - Series
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: series-3
+spec:
+  title: Series
+  description: Series and films
+  icon: subscriptions
+  primary: title
+  readOnly: false
+  history: false
+  properties:
+    title:
+      type: string
+      description: Title of the row
+      options:
+        position: left
+    description:
+      type: textarea
+      description: Description of the row
+      options:
+        position: left
+    thumbnail:
+      type: storage
+      description: Description of the thumbnail input
+      options:
+        position: right
+    genres:
+      type: relation
+      description: Description of the genres input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: genre
+      bucket:
+        resourceFieldRef:
+          schemaName: genres-5
+    director:
+      type: relation
+      description: Description of the director input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: name
+      bucket:
+        resourceFieldRef:
+          schemaName: people-6
+    cast:
+      type: relation
+      description: Description of the cast input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: name
+      bucket:
+        resourceFieldRef:
+          schemaName: people-6
+    writer:
+      type: relation
+      description: Description of the writer input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: name
+      bucket:
+        resourceFieldRef:
+          schemaName: people-6
+    tags:
+      type: relation
+      description: Description of the tags input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: tag
+      bucket:
+        resourceFieldRef:
+          schemaName: tags-7
+    release_date:
+      type: date
+      description: Description of the release_date input
+      options:
+        position: left
+    is_available:
+      type: boolean
+      description: Description of the is_available input
+      options:
+        position: left
+      default: false
+  acl:
+    write: true==true
+    read: true==true
+  order: 2
+---
+# BUCKET - Maturity Rating
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: maturity-rating-8
+spec:
+  title: Maturity Rating
+  description: Maturity ratings
+  icon: videocam_off
+  primary: name
+  readOnly: false
+  history: false
+  properties:
+    name:
+      type: string
+      description: Description of the name input
+      options:
+        position: left
+    symbol:
+      type: string
+      description: Description of the symbol input
+      options:
+        position: right
+  acl:
+    write: true==true
+    read: true==true
+  order: 7
+---
+# BUCKET - Users
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: users-1
+spec:
+  title: Users
+  description: Application users
+  icon: accessibility
+  primary: username
+  readOnly: false
+  history: false
+  properties:
+    identity_id:
+      type: string
+      description: Description of the identity_id input
+      options:
+        position: left
+    username:
+      type: string
+      description: Description of the username input
+      options:
+        position: left
+    preferred_language:
+      type: string
+      description: Description of the preferred_language input
+      options:
+        position: left
+    icon:
+      type: string
+      description: Description of the icon input
+      options:
+        position: left
+      enum:
+        - batman
+        - superman
+    autoplay_next:
+      type: boolean
+      description: Description of the autoplay_next input
+      options:
+        position: left
+      default: true
+    autoplay_previews:
+      type: boolean
+      description: Description of the autoplay_previews input
+      options:
+        position: left
+      default: true
+    maturity_settings:
+      type: relation
+      description: Description of the maturity_settings input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: name
+      bucket:
+        resourceFieldRef:
+          schemaName: maturity-rating-8
+    watch_list:
+      type: relation
+      description: Description of the watch_list input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: title
+      bucket:
+        resourceFieldRef:
+          schemaName: series-3
+    likes:
+      type: relation
+      description: Description of the likes input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: title
+      bucket:
+        resourceFieldRef:
+          schemaName: series-3
+    dislikes:
+      type: relation
+      description: Description of the dislikes input
+      options:
+        position: right
+      relationType: onetomany
+      dependent: false
+      primary: title
+      bucket:
+        resourceFieldRef:
+          schemaName: series-3
+  acl:
+    write: true==true
+    read: true==true
+  order: 0
+---
+# BUCKET - Brands
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: brands-2
+spec:
+  title: Brands
+  description: Describe your new bucket
+  icon: library_books
+  primary: name
+  readOnly: false
+  history: false
+  properties:
+    name:
+      type: string
+      description: Description of the name input
+      options:
+        position: left
+    description:
+      type: textarea
+      description: Description of the description input
+      options:
+        position: right
+    series:
+      type: relation
+      description: Description of the series input
+      options:
+        position: left
+      relationType: onetomany
+      dependent: true
+      primary: title
+      bucket:
+        resourceFieldRef:
+          schemaName: series-3
+    maturity:
+      type: relation
+      description: Description of the maturity input
+      options:
+        position: bottom
+      relationType: onetoone
+      dependent: false
+      bucket:
+        resourceFieldRef:
+          schemaName: maturity-rating-8
+  acl:
+    write: true==true
+    read: true==true
+  order: 1
+---
+# BUCKET - Videos
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: videos-4
+spec:
+  title: Videos
+  description: "One part in series or film "
+  icon: movie
+  primary: title
+  readOnly: false
+  history: false
+  properties:
+    title:
+      type: string
+      description: Title of the row
+      options:
+        position: left
+    description:
+      type: textarea
+      description: Description of the row
+      options:
+        position: left
+    serie:
+      type: relation
+      description: Description of the serie input
+      options:
+        position: left
+      relationType: onetoone
+      dependent: false
+      bucket:
+        resourceFieldRef:
+          schemaName: series-3
+    video:
+      type: storage
+      description: Description of the video input
+      options:
+        position: right
+    subtitles:
+      type: storage
+      description: Description of the subtitles input
+      options:
+        position: right
+        translate: true
+    duration:
+      type: number
+      description: Description of the duration input
+      options:
+        position: left
+      minimum: 0
+  acl:
+    write: true==true
+    read: true==true
+  order: 3
+---
+# BUCKET - Activity
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: activity-9
+spec:
+  title: Activity
+  description: Describe your new bucket
+  icon: play_circle_filled
+  primary: activity
+  readOnly: false
+  history: false
+  properties:
+    user:
+      type: relation
+      description: Description of the user input
+      options:
+        position: left
+      relationType: onetoone
+      dependent: false
+      bucket:
+        resourceFieldRef:
+          schemaName: users-1
+    video:
+      type: relation
+      description: Description of the video input
+      options:
+        position: left
+      relationType: onetoone
+      dependent: false
+      bucket:
+        resourceFieldRef:
+          schemaName: videos-4
+    activity:
+      type: textarea
+      description: Description of the activity input
+      options:
+        position: right
+  acl:
+    write: true==true
+    read: true==true
+  order: 8
+---
+# BUCKET - Configuration
+apiVersion: bucket/v1
+kind: Schema
+metadata:
+  name: configuration-10
+spec:
+  title: Configuration
+  description: Describe your new bucket
+  icon: build
+  primary: key
+  readOnly: false
+  history: false
+  properties:
+    key:
+      type: string
+      description: Description of the key input
+      options:
+        position: left
+    value:
+      type: textarea
+      description: Description of the value input
+      options:
+        position: right
+  acl:
+    write: true==true
+    read: true==true
+  order: 9
